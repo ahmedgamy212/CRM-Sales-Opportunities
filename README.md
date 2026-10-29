@@ -2,7 +2,6 @@
 
 Who is missing the target? An interactive Power BI dashboard built on CRM sales and opportunities data. Data prepared with SQL.
 
-![Dashboard Home](images/home.png)
 
 ## Business Question
 
@@ -33,7 +32,6 @@ Star schema with `sales_pipeline` as the fact table.
 | products | Dimension: product, series, sales_price |
 | sales_teams | Dimension: sales_agent, manager, regional_office |
 
-![Data Model](images/model.png)
 
 ## Dashboard Pages
 
@@ -59,9 +57,6 @@ Gap % = DIVIDE( [Gap], [Total Target] )
 
 ## Screenshots
 
-![Salespeople](images/salespeople.png)
-![Managers](images/managers.png)
-
 ## Repository Structure
 
 ```
@@ -78,7 +73,7 @@ Gap % = DIVIDE( [Gap], [Total Target] )
 2. Open it in Power BI Desktop.
 3. If asked, point the data source to the files in `/data`.
 
-## Author
-
-**[Your Name]**
-[LinkedIn](your-link) | [Email](your-email)
+## Authors
+Ahmed Gamal
+Mahmoud Abdelnaser
+Ahmed Ashraf
