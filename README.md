@@ -74,6 +74,6 @@ Gap % = DIVIDE( [Gap], [Total Target] )
 3. If asked, point the data source to the files in `/data`.
 
 ## Authors
-Ahmed Gamal
-Mahmoud Abdelnaser
+Ahmed Gamal |
+Mahmoud Abdelnaser |
 Ahmed Ashraf
