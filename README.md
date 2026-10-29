@@ -1,48 +1,84 @@
-# CRM + Sales + Opportunities
+# CRM Sales Pipeline Analysis
 
-A Power BI dashboard and SQL analysis project for exploring company accounts, sales pipeline performance, and sales-team results.
+Who is missing the target? An interactive Power BI dashboard built on CRM sales and opportunities data. Data prepared with SQL.
 
-## Project files
+![Dashboard Home](images/home.png)
 
-- **`file.pbix`** — Power BI report with an embedded data model and five report pages.
-- **`SQLQuery1.sql`** — SQL Server queries for company, product, opportunity, salesperson, manager, industry, and location analysis.
+## Business Question
 
-## Power BI report
+Total sales reached **10M**, but the team finished **-4M (-27.5%)** below target. Where does the gap come from?
 
-The report is organized into these pages:
+## Key Findings
 
-- **Home** — navigation and overview of salesperson performance against targets.
-- **Accounts** — account revenue and employee metrics, company-value comparisons, location map, and account/sector/product/manager/salesperson filters.
-- **Sectors and Deals** — sector comparisons, company value, and deal-related analysis.
-- **Managers** — manager-level sales performance and trends over time.
-- **Salespeople** — salesperson revenue comparisons and performance metrics.
+- Every manager finished below target.
+- **Dustin Brinkmann** had the widest gap: **-55%**.
+- High sales do not mean target achieved. **Vicki Laflamme** is #2 in sales but missed her target by 154K.
+- Only 4 of the top 10 salespeople beat their target. **Darcel Schlecht** led with **+40%**.
+- A percentage gap (Gap %) is fairer than a value gap. Targets are not equal across people.
 
-Open `file.pbix` with Microsoft Power BI Desktop to explore the report. Slicers and report navigation are included in the dashboard.
+## Tools
 
-## SQL analysis
+- **SQL**: data cleaning and preparation
+- **Power BI**: data modeling, DAX, dashboard design
+- **Canva**: dashboard backgrounds
 
-`SQLQuery1.sql` contains standalone queries covering:
+## Data Model
 
-- Parent companies and subsidiaries, including combined revenue and subsidiary contribution.
-- Product revenue and each product's share of an account's total.
-- Account average revenue by years since establishment.
-- Top and bottom salespeople by won revenue and order count.
-- Top and bottom salespeople by revenue versus summed product-price targets.
-- Manager performance, revenue per agent, and deal-stage counts.
-- Revenue by office location and industry-sector rankings.
-- Average time from engagement to close and won revenue by account.
+Star schema with `sales_pipeline` as the fact table.
 
-### Running the queries
+| Table | Role |
+|---|---|
+| sales_pipeline | Fact: deals, close_date, close_value, deal_stage |
+| accounts | Dimension: companies, sector, employees, revenue, location |
+| products | Dimension: product, series, sales_price |
+| sales_teams | Dimension: sales_agent, manager, regional_office |
 
-Run the statements in `SQLQuery1.sql` in a SQL Server-compatible environment with access to the project schema. The queries expect these tables and columns:
+![Data Model](images/model.png)
 
-- `dbo.accounts` — account, subsidiary, revenue, establishment year, sector, and office location data.
-- `sales_pipeline` — account, product, salesperson, deal stage, close value, engagement date, and close date data.
-- `products` — product and sales price data.
-- `sales_teams` — salesperson and manager assignments.
+## Dashboard Pages
 
-The script uses SQL Server functions and syntax, including `YEAR`, `DATEDIFF`, `TRY_CAST`, CTEs, and window functions. Adjust schema names or column names if your database uses a different structure.
+| Page | What it shows |
+|---|---|
+| Home | Cover and navigation |
+| Accounts | Client companies, avg deal value, revenue by country |
+| Sectors | Company age vs deal value, revenue by sector |
+| Salespeople | Top/Bottom 10 by sales, orders, and Gap |
+| Managers | Gap by manager, sales vs target over time |
 
-## Notes
+Every page has slicers: account, sector, product, manager, sales_agent.
 
-The PBIX file includes the report and its embedded Power BI model. The SQL script is provided separately for querying a compatible SQL Server database; no separate SQL database or source-data export is included in this repository.
+## Main DAX Measures
+
+```DAX
+Total Sales = SUM( sales_pipeline[close_value] )
+
+Gap = [Total Sales] - [Total Target]
+
+Gap % = DIVIDE( [Gap], [Total Target] )
+```
+
+## Screenshots
+
+![Salespeople](images/salespeople.png)
+![Managers](images/managers.png)
+
+## Repository Structure
+
+```
+├── README.md
+├── sql/            # SQL cleaning scripts
+├── data/           # dataset (or link to source)
+├── images/         # dashboard screenshots
+└── CRM_Dashboard.pbix
+```
+
+## How to Use
+
+1. Download `CRM_Dashboard.pbix`.
+2. Open it in Power BI Desktop.
+3. If asked, point the data source to the files in `/data`.
+
+## Author
+
+**[Your Name]**
+[LinkedIn](your-link) | [Email](your-email)
